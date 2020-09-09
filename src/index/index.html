@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'unsafe-inline'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <title>4500文</title>
+    <style type="text/css">
+
+      body {
+        font-family: "Helvetica Neue", "Arial", sans-serif;
+        font-size: 24px;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: #eee;
+      }
+
+      h1, h2 {
+        color: white;
+        text-align: center;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 0.8em;
+        color: rgba(255,255,255,0.8);
+      }
+
+      section {
+        height: 50vh;
+        flex-grow: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      section#source,
+      section#congrats {
+        background-image: linear-gradient(to bottom, #a0f, #9300dd);
+      }
+
+      section#translation {
+        background: white;
+        box-sizing: border-box;
+      }
+
+      section#congrats {
+        height: 100vh;
+      }
+
+      section#congrats h1 {
+        color: #FFF;
+        font-size: 1.6em;
+      }
+
+      input {
+        height: 100%;
+        font-size: 24px;
+        font-size: 1em;
+        text-align: center;
+        border: none;
+        margin: 10px;
+        background: white;
+        box-shadow: 3px 3px 0 #e1e1e1;
+        text-align: center;
+        /*box-shadow: 0 0.25em 0.5em rgba(0,0,0,0.2);*/
+      }
+
+    </style>
+  </head>
+  <body>
+    <section id="source">
+      <h1 id="tango">ローディング中</h1>
+      <h2 id="sentence">ちょっと待って下さいね</h2>
+    </section>
+    <section id="translation">
+      <input id="input" type="text" placeholder="翻訳はこちらに入力なさい ・ Translation goes here" />
+    </section>
+    <script src="./renderer.js"></script>
+  </body>
+</html>
