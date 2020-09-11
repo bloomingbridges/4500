@@ -36,6 +36,7 @@ function createMainWindow () {
       preload: PATH.join(__dirname, 'index', 'preload.js')
     }
   });
+  win.setMenuBarVisibility(false);
   win.loadFile(PATH.join(__dirname, 'index', 'index.html'));
   return win;
 }
