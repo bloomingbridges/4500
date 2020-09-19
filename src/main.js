@@ -1,6 +1,8 @@
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {app, BrowserWindow, ipcMain, Menu} = require('electron')
 const STORE = require('electron-store')
 const PATH = require('path')
+
+const MENU_TEMPLATE = require('./menu').template
 
 let mainWindow;
 
@@ -9,6 +11,8 @@ function createWindow () {
     , source = store.get('source');
   mainWindow = (source) ? createMainWindow() 
                         : createSetupWindow();
+  let m = Menu.buildFromTemplate(MENU_TEMPLATE);
+  Menu.setApplicationMenu(m);
 }
 
 function createSetupWindow () {
