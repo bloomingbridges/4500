@@ -18,20 +18,20 @@ APP.whenReady().then(() => {
 })
 // APP LIFECYCLE - ON_WINDOW-ALL-CLOSED //////////////////////////////
 APP.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') APP.quit()
+  // if (process.platform !== 'darwin') APP.quit()
 })
 //////////////////////////////////////////////////////////////////////
 
 // WINDOWS ///////////////////////////////////////////////////////////
 // WINDOWS - CREATE_WINDOW ///////////////////////////////////////////
-function createWindow () {
+function createWindow() {
   let 有 = new STORE().get('source');
   global.mainWindow = 有 ? createMainWindow() : createSetupWindow();
   let m = MENU.buildFromTemplate(MENU_TEMPLATE);
   MENU.setApplicationMenu(m);
 }
 // WINDOWS - CREATE_SETUP_WINDOW /////////////////////////////////////
-function createSetupWindow () {
+function createSetupWindow() {
   let win =  new WIN({
     width: 320,
     height: 300,
@@ -47,17 +47,29 @@ function createSetupWindow () {
   return win;
 }
 // WINDOWS - CREATE_MAIN_WINDOW //////////////////////////////////////
-function createMainWindow () {
+function createMainWindow() {
   let win = new WIN({
     width: 960,
     height: 360,
     backgroundColor: "#eee",
+    autoHideMenuBar: true,
     webPreferences: {
       preload: PATH.join(__dirname, 'index', 'preload.js')
     }
   });
-  win.setMenuBarVisibility(false);
+  // win.setMenuBarVisibility(false);
   win.loadFile(PATH.join(__dirname, 'index', 'index.html'));
+  return win;
+}
+// WINDOWS - CREATE_HISTORY_WINDOW ///////////////////////////////////
+function createHistoryWindow() {
+  let win = new WIN({
+    width: 720,
+    height: 640,
+    resizable: true,
+    backgroundColor: "#FF00cc"
+  });
+  win.setMenuBarVisibility(false);
   return win;
 }
 //////////////////////////////////////////////////////////////////////
@@ -70,5 +82,12 @@ IPC.handle('performAdditionalSetupTasks', ( event, args ) => {
   let store = new STORE();
   store.set('source', '有');
   createWindow();
+});
+// IPC EVENTS - SHOW_HISTORY_WINDOW //////////////////////////////////
+IPC.handle('showHistoryWindow', ( event, args ) => {
+  global.historyWindow = createHistoryWindow();
+  global.historyWindow.on('closed', ( event ) => {
+    global.historyWindow = null;
+  });
 });
 //////////////////////////////////////////////////////////////////////

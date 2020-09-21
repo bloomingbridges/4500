@@ -34,11 +34,19 @@ const minimalTemplate = [
     showOn: ["darwin"],
     submenu: [
     	{
-        label: 'GitHubで見る',
+        label: "GitHubで見る",
         click: async () => {
           const { shell } = require('electron')
               , url = 'https://github.com/bloomingbridges/4500';
           await shell.openExternal(url);
+        }
+      },
+      {
+        label: "履歴を表示",
+        accelerator: "Command+/",
+        click: ( menuItem, browserWindow, event ) => { 
+          if (browserWindow && browserWindow.title === '4500文')
+            browserWindow.webContents.send('command', 'history');
         }
       }
     ]
