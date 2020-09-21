@@ -37,12 +37,14 @@ function createSetupWindow() {
     height: 300,
     resizable: false,
     frame: false,
+    show: false,
     backgroundColor: "#268bd2",
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true
     }
   });
+  win.once('ready-to-show', () => { win.show(); });
   win.loadFile(PATH.join(__dirname, 'setup', 'setup.html'));
   return win;
 }
@@ -51,12 +53,14 @@ function createMainWindow() {
   let win = new WIN({
     width: 960,
     height: 360,
+    show: false,
     backgroundColor: "#eee",
     autoHideMenuBar: true,
     webPreferences: {
       preload: PATH.join(__dirname, 'index', 'preload.js')
     }
   });
+  win.once('ready-to-show', () => { win.show(); });
   // win.setMenuBarVisibility(false);
   win.loadFile(PATH.join(__dirname, 'index', 'index.html'));
   return win;
@@ -64,11 +68,15 @@ function createMainWindow() {
 // WINDOWS - CREATE_HISTORY_WINDOW ///////////////////////////////////
 function createHistoryWindow() {
   let win = new WIN({
-    width: 720,
+    width: 640,
     height: 640,
     resizable: true,
-    backgroundColor: "#FF00cc"
+    backgroundColor: "#EEE",
+    webPreferences: {
+      preload: PATH.join(__dirname, 'history', 'preload.js')
+    }
   });
+  win.loadFile(PATH.join(__dirname, 'history', 'history.html'));
   win.setMenuBarVisibility(false);
   return win;
 }

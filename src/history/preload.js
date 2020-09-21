@@ -1,0 +1,34 @@
+// MODULES ///////////////////////////////////////////////////////////
+const POUCH = require('pouchdb-browser');
+//////////////////////////////////////////////////////////////////////
+
+// DB ////////////////////////////////////////////////////////////////
+	const SRC_DB = new POUCH('source')
+			, HON_DB = new POUCH('translations');
+//////////////////////////////////////////////////////////////////////
+
+// HISTORY ///////////////////////////////////////////////////////////
+// HISTORY - WRITE_HISTORY ///////////////////////////////////////////
+async function writeHistory() {
+	let sources = await SRC_DB.allDocs({ include_docs: true} )
+		, translations = await HON_DB.allDocs({ include_docs: true} )
+		, index
+		, t;
+	for ( [index, t] of translations.rows.entries() ) {
+		let section = document.createElement('SECTION')
+			, h2 = document.createElement('H2')
+			, h3 = document.createElement('H3');
+		h2.innerText = sources.rows[index].doc.sentence;
+		h3.innerText = t.doc.text;
+		section.appendChild(h2);
+		section.appendChild(h3);
+		document.body.appendChild(section);
+	}
+}
+//////////////////////////////////////////////////////////////////////
+
+// DOM_CONTENT_LOADED ////////////////////////////////////////////////
+window.addEventListener('DOMContentLoaded', () => {
+	writeHistory();
+});
+//////////////////////////////////////////////////////////////////////
