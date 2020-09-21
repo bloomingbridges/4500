@@ -71,7 +71,7 @@ function createHistoryWindow() {
     width: 640,
     height: 640,
     resizable: true,
-    backgroundColor: "#EEE",
+    backgroundColor: "#a0f",
     webPreferences: {
       preload: PATH.join(__dirname, 'history', 'preload.js')
     }
