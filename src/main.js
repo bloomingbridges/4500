@@ -1,22 +1,38 @@
-const {app, BrowserWindow, ipcMain, Menu} = require('electron')
-const STORE = require('electron-store')
-const PATH = require('path')
+// MODULES ///////////////////////////////////////////////////////////
+const APP = require('electron').app
+    , IPC = require('electron').ipcMain
+    , WIN = require('electron').BrowserWindow
+    , MENU = require('electron').Menu
+    , PATH = require('path')
+    , STORE = require('electron-store')
+    , MENU_TEMPLATE = require('./menu').template;
+//////////////////////////////////////////////////////////////////////
 
-const MENU_TEMPLATE = require('./menu').template
+// APP LIFECYCLE /////////////////////////////////////////////////////
+// APP LIFECYCLE - WHEN_READY ////////////////////////////////////////
+APP.whenReady().then(() => {
+  createWindow()
+  APP.on('activate', function () {
+    if (WIN.getAllWindows().length === 0) createWindow()
+  })
+})
+// APP LIFECYCLE - ON_WINDOW-ALL-CLOSED //////////////////////////////
+APP.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') APP.quit()
+})
+//////////////////////////////////////////////////////////////////////
 
-let mainWindow;
-
+// WINDOWS ///////////////////////////////////////////////////////////
+// WINDOWS - CREATE_WINDOW ///////////////////////////////////////////
 function createWindow () {
-  let store = new STORE()
-    , source = store.get('source');
-  mainWindow = (source) ? createMainWindow() 
-                        : createSetupWindow();
-  let m = Menu.buildFromTemplate(MENU_TEMPLATE);
-  Menu.setApplicationMenu(m);
+  let 有 = new STORE().get('source');
+  global.mainWindow = 有 ? createMainWindow() : createSetupWindow();
+  let m = MENU.buildFromTemplate(MENU_TEMPLATE);
+  MENU.setApplicationMenu(m);
 }
-
+// WINDOWS - CREATE_SETUP_WINDOW /////////////////////////////////////
 function createSetupWindow () {
-  let win =  new BrowserWindow({
+  let win =  new WIN({
     width: 320,
     height: 300,
     resizable: false,
@@ -30,9 +46,9 @@ function createSetupWindow () {
   win.loadFile(PATH.join(__dirname, 'setup', 'setup.html'));
   return win;
 }
-
+// WINDOWS - CREATE_MAIN_WINDOW //////////////////////////////////////
 function createMainWindow () {
-  let win = new BrowserWindow({
+  let win = new WIN({
     width: 960,
     height: 360,
     backgroundColor: "#eee",
@@ -44,24 +60,15 @@ function createMainWindow () {
   win.loadFile(PATH.join(__dirname, 'index', 'index.html'));
   return win;
 }
+//////////////////////////////////////////////////////////////////////
 
-app.whenReady().then(() => {
-  createWindow()
-  
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
-
-})
-
-app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit()
-})
-
-
-ipcMain.handle('performAdditionalSetupTasks', ( event, args ) => {
-  console.log("Finishing setup..");
+// IPC EVENTS ////////////////////////////////////////////////////////
+// Used to communicate with renderer process /////////////////////////
+// IPC EVENTS - PERFORM_ADDITIONAL_SETUP_TASKS ///////////////////////
+IPC.handle('performAdditionalSetupTasks', ( event, args ) => {
+  // console.log("Finishing setup.."); ///////////////////////////////
   let store = new STORE();
   store.set('source', '有');
   createWindow();
 });
+//////////////////////////////////////////////////////////////////////

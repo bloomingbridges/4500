@@ -1,7 +1,11 @@
-const { app } = require("electron");
+// CONST /////////////////////////////////////////////////////////////
+const APP = require("electron").app;
+//////////////////////////////////////////////////////////////////////
+
+// TEMPLATES /////////////////////////////////////////////////////////
 const minimalTemplate = [
 	{
-		label: app.name,
+		label: APP.name,
 		showOn: ["darwin"],
 		submenu: [
 			{ role: "about" },
@@ -33,10 +37,15 @@ const minimalTemplate = [
         label: 'GitHubで見る',
         click: async () => {
           const { shell } = require('electron')
-          await shell.openExternal('https://github.com/bloomingbridges/4500')
+              , url = 'https://github.com/bloomingbridges/4500';
+          await shell.openExternal(url);
         }
       }
     ]
   }
 ];
+//////////////////////////////////////////////////////////////////////
+
+// EXPORTS ///////////////////////////////////////////////////////////
 exports.template = minimalTemplate;
+//////////////////////////////////////////////////////////////////////
