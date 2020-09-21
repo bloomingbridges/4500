@@ -6,6 +6,7 @@ I've been meaning to work through those ever since I bought them in 2019[Citatio
 
 So in order to save the planet and finally be able to get into a routine of analysing Japanese sentences I wrote a smol (in terms of functionality) application, that ..
 
+- Prompts me to translate a Japanese sentence into my native tongue one at a time
 - I could leave running in the background without annoying me
 - would notify me every day about its existence via native notifications and
 - could maybe sync my progress with other machines in my household.
