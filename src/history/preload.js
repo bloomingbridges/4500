@@ -22,7 +22,10 @@ async function writeHistory() {
 		h3.innerText = t.doc.text;
 		section.appendChild(h2);
 		section.appendChild(h3);
-		document.body.appendChild(section);
+		if (document.body.children.length > 0)
+			document.body.insertBefore(section, document.body.firstChild);
+		else 
+			document.body.appendChild(section);
 	}
 }
 //////////////////////////////////////////////////////////////////////
