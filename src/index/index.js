@@ -27,7 +27,7 @@ var progress;
 function publishTranslation( t ) {
 	// console.log("Publishing " + t); /////////////////////////////////
 	let doc = {
-		"_id": `t${progress}`,
+		"_id": "hon" + String(progress).padStart(4, '0'),
 		"text": INPUT.value
 	};
 	HON_DB.post(doc, ( error ) => {
@@ -35,6 +35,7 @@ function publishTranslation( t ) {
 		INPUT.value = "";
 		progress += 1;
 		determineProgress();
+		reportPublication();
 	});
 }
 //////////////////////////////////////////////////////////////////////
@@ -54,7 +55,7 @@ function determineProgress() {
 }
 // PROGRESS - NEXT_CHALLENGE /////////////////////////////////////////
 function nextChallenge() {
-	SRC_DB.get(`r${progress}`, ( error ) => {
+	SRC_DB.get(`bun${String(progress).padStart(4, '0')}`, ( error ) => {
 		if (error) console.error(error.message);
 	}).then(( doc ) => {
 		document.getElementById('tango').innerText = doc.tango;

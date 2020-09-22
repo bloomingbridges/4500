@@ -10,16 +10,22 @@ const POUCH = require('pouchdb-browser');
 // HISTORY ///////////////////////////////////////////////////////////
 // HISTORY - WRITE_HISTORY ///////////////////////////////////////////
 async function writeHistory() {
-	let sources = await SRC_DB.allDocs({ include_docs: true} )
-		, translations = await HON_DB.allDocs({ include_docs: true} )
-		, index
-		, t;
-	for ( [index, t] of translations.rows.entries() ) {
+	let translations = await HON_DB.allDocs({ include_docs: true} );
+	let entries = translations.rows.length - 1
+		, i = 0, o, t;
+	let sources = await SRC_DB.allDocs({ 
+		include_docs: true,
+		limit: entries + 1
+	} );
+	console.log(sources);
+	for ( i; i <= entries; i++ ) {
+		o = sources.rows[i];
+		t = translations.rows[i];
 		let section = document.createElement('SECTION')
 			, h2 = document.createElement('H2')
 			, h3 = document.createElement('H3');
-		h2.innerText = sources.rows[index].doc.sentence;
-		h3.innerText = t.doc.text;
+		h2.innerText = `${o.id} ${o.doc.sentence}`;
+		h3.innerText = `${t.id} ${t.doc.text}`;
 		section.appendChild(h2);
 		section.appendChild(h3);
 		if (document.body.children.length > 0)

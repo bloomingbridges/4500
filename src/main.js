@@ -69,7 +69,7 @@ function createMainWindow() {
 function createHistoryWindow() {
   let win = new WIN({
     width: 640,
-    height: 640,
+    height: 450,
     resizable: true,
     backgroundColor: "#a0f",
     webPreferences: {
@@ -98,4 +98,8 @@ IPC.handle('showHistoryWindow', ( event, args ) => {
     global.historyWindow = null;
   });
 });
+IPC.handle('updateHistoryWindow', ( event, args ) => {
+  if (global.historyWindow) 
+    global.historyWindow.reload();
+})
 //////////////////////////////////////////////////////////////////////

@@ -9,6 +9,10 @@ const POUCH = require('pouchdb-browser')
 global.connectToDB = function( name ) {
 	return new POUCH(name);
 };
+// GLOBALS - REPORT_PUBLICATION //////////////////////////////////////
+global.reportPublication = function() {
+	IPC.invoke('updateHistoryWindow');
+}
 //////////////////////////////////////////////////////////////////////
 
 // IPC EVENTS ////////////////////////////////////////////////////////

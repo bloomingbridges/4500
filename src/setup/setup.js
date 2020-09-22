@@ -59,7 +59,7 @@ function fillSourceDatabase( src ) {
 		a = src[`A${r}`];
 		b = src[`B${r}`];
 		doc = {
-			"_id": `r${r-1}`,
+			"_id": "bun" + String(r-1).padStart(4, '0'),
 			"tango": a.v,
 			"sentence": (b) ? b.v : ""
 		};
