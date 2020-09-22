@@ -15,7 +15,6 @@ The app is already usable (see the Releases section), just missing the following
 
 ## TODO
 
-- Add window showing all entered translations
 - Add sync option for devices on local network
 - Add daily notification reminder
 - Make **KILL SCREEN** more satisfying
