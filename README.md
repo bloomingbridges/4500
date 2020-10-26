@@ -15,6 +15,7 @@ The app is already usable (see the Releases section), just missing the following
 
 ## TODO
 
-- Add sync option for devices on local network
 - Add daily notification reminder
+- Add sync option for devices on local network
+- Dark Mode support?
 - Make **KILL SCREEN** more satisfying

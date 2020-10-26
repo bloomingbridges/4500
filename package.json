@@ -1,6 +1,6 @@
 {
   "name": "4500",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Smol electron client for Tofugu's \"4,500 Japanese Sentences\"",
   "main": "src/main.js",
   "scripts": {
