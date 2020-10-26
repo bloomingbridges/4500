@@ -17,7 +17,7 @@ async function writeHistory() {
 		include_docs: true,
 		limit: entries + 1
 	} );
-	console.log(sources);
+	// console.log(sources);
 	for ( i; i <= entries; i++ ) {
 		o = sources.rows[i];
 		t = translations.rows[i];

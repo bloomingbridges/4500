@@ -18,7 +18,7 @@ APP.whenReady().then(() => {
 })
 // APP LIFECYCLE - ON_WINDOW-ALL-CLOSED //////////////////////////////
 APP.on('window-all-closed', function () {
-  // if (process.platform !== 'darwin') APP.quit()
+  if (process.platform !== 'darwin') APP.quit()
 })
 //////////////////////////////////////////////////////////////////////
 
@@ -99,7 +99,7 @@ IPC.handle('showHistoryWindow', ( event, args ) => {
   });
 });
 IPC.handle('updateHistoryWindow', ( event, args ) => {
-  if (global.historyWindow) 
+  if (global.historyWindow && process.platform === 'darwin') 
     global.historyWindow.reload();
 })
 //////////////////////////////////////////////////////////////////////
